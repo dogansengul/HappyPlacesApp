@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HappyPlacesApp" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorSecondary">@color/ColorSecondary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/ColorPrimary</item>
+    </style>
+
+    <style name="Theme.HappyPlacesApp" parent="Base.Theme.HappyPlacesApp"/>
+
+    <style name="RoundedCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="CustomToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item> <!-- İstediğiniz boyutu burada belirleyebilirsiniz -->
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CustomToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/ColorPrimary</item>
+    </style>
+
+    <style name="CustomButtonBackgroundColorStyle" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/ColorSecondary</item> <!-- Aydınlık mod için buton rengi -->
+    </style>
+
+</resources>
