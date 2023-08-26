@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,19 +39,26 @@ class MainActivity : AppCompatActivity() {
             getAllHappyPlacesAndDisplayRV()
         }
 
+
         //adding happy place button functionality
         binding.fabAddHappyPlace.setOnClickListener {
             val intent = Intent(this, AddPlaceActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun setUpRV(data: ArrayList<HappyPlace>) {
+        val happyPlaceAdapter = HappyPlaceAdapter(data)
         binding.recyclerView.apply {
-            happyPlaceAdapter = HappyPlaceAdapter(data)
             adapter = happyPlaceAdapter
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         }
+        happyPlaceAdapter.setOnItemClickListener(object : HappyPlaceAdapter.OnItemClickListener{
+            override fun OnItemClick(position: Int) {
+                Toast.makeText(this@MainActivity, "yes", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         //creating itemtouchhelper object to delete and move happyplaces on recyclerview
         val itemTouchHelper: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                             databaseDao?.deletePlace(removed)
                             placeData.remove(removed)
                             withContext(Dispatchers.Main) {
-                                happyPlaceAdapter.updateRVData(placeData)
+
                             }
 
                         }
@@ -94,10 +102,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun getAllHappyPlacesAndDisplayRV() {
+        placeData = ArrayList<HappyPlace>()
         lifecycleScope.launch {
             databaseDao?.getAllPlaces()?.collect{
                 placeData = ArrayList(it)
-                runOnUiThread {
+                withContext(Dispatchers.Main) {
                     setUpRV(placeData)
                 }
             }

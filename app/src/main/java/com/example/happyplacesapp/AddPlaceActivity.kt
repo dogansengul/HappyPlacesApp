@@ -160,7 +160,7 @@ class AddPlaceActivity : AppCompatActivity() {
             if((title.isNotEmpty()) && (description.isNotEmpty()) && (date.isNotEmpty()) && (location.isNotEmpty()) && (image!= null)) {
                 lifecycleScope.launch {
                     happyPlaceCount = databaseDao?.getPlaceCount() ?: 0
-                    databaseDao?.addPlace(HappyPlace(id = happyPlaceCount + 1, title = title,
+                    databaseDao?.addPlace(HappyPlace(title = title,
                         description = description,
                         date = date,
                         location = location,

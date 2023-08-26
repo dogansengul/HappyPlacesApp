@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [HappyPlace::class], version = 2)
+@Database(entities = [HappyPlace::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class HappyPlaceDatabase: RoomDatabase() {
     abstract fun dao(): Dao

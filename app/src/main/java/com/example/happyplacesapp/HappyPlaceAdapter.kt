@@ -13,7 +13,9 @@ class HappyPlaceAdapter(private var data: ArrayList<HappyPlace>): RecyclerView.A
         val tvDescription = binding.tvDescription
         val ivImage = binding.ivHappyPlaceImage
         init {
-            listener.OnItemClick(adapterPosition)
+            binding.root.setOnClickListener {
+                listener.OnItemClick(adapterPosition)
+            }
         }
         fun bind(place: HappyPlace) {
             tvTitle.text = place.title
@@ -21,8 +23,7 @@ class HappyPlaceAdapter(private var data: ArrayList<HappyPlace>): RecyclerView.A
             ivImage.setImageBitmap(place.imageBitmap)
         }
     }
-    private lateinit var mlistener: OnItemClickListener
-
+    private var mlistener: OnItemClickListener? = null
     interface OnItemClickListener {
         fun OnItemClick(position: Int)
     }
@@ -37,7 +38,7 @@ class HappyPlaceAdapter(private var data: ArrayList<HappyPlace>): RecyclerView.A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HappyPlaceViewHolder {
-        return HappyPlaceViewHolder(ItemRowRvBinding.inflate(LayoutInflater.from(parent.context)), mlistener)
+        return HappyPlaceViewHolder(ItemRowRvBinding.inflate(LayoutInflater.from(parent.context)), listener = mlistener!!)
     }
 
     override fun onBindViewHolder(holder: HappyPlaceViewHolder, position: Int) {
